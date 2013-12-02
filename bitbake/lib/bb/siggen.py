@@ -202,6 +202,7 @@ class SignatureGeneratorBasic(SignatureGenerator):
         self.file_checksum_values = checksums
 
     def dump_sigtask(self, fn, task, stampbase, runtime):
+        '''
         k = fn + "." + task
         if runtime == "customfile":
             sigfile = stampbase
@@ -250,6 +251,7 @@ class SignatureGeneratorBasic(SignatureGenerator):
             except OSError:
                 pass
             raise err
+        '''
 
     def dump_sigs(self, dataCache, options):
         for fn in self.taskdeps:
