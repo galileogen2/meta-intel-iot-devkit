@@ -153,7 +153,7 @@ class HobHandler(gobject.GObject):
             if self.base_image:
                 # Request the build of a custom image
                 self.generate_hob_base_image(target)
-                self.set_var_in_file("LINGUAS_INSTALL", "", "local.conf")
+                #self.set_var_in_file("LINGUAS_INSTALL", "", "local.conf")
                 hobImage = self.runCommand(["matchFile", target + ".bb"])
                 if self.base_image != self.recipe_model.__custom_image__:
                     baseImage = self.runCommand(["matchFile", self.base_image + ".bb"])
