@@ -289,11 +289,7 @@ class ImageConfigurationPage (HobPage):
         self.builder.just_bake()
 
     def edit_image_button_clicked_cb(self, button):
-<<<<<<< HEAD
-        self.builder.set_base_image()
-=======
         self.update_conf()
         self.builder.configuration.initial_selected_image = self.builder.configuration.selected_image
->>>>>>> 2196b8d... imageconfigurationpage: remove useless code & alignments changes
-        self.builder.show_recipes()
+        self.builder.show_packages(ask=False)
 
