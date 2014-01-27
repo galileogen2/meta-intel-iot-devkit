@@ -161,11 +161,9 @@ class HobHandler(gobject.GObject):
                     target += version
                     self.recipe_model.set_custom_image_version(version)
 
-            targets = [target]
-            if self.toolchain_packages:
-                self.set_var_in_file("TOOLCHAIN_TARGET_TASK", " ".join(self.toolchain_packages), "local.conf")
+            targets = [target + ":do_rootfs"]
+            if self.toolchain:
                 targets.append(target + ":do_populate_sdk")
-
             self.runCommand(["buildTargets", targets, self.default_task])
 
     def display_error(self):
@@ -320,11 +318,10 @@ class HobHandler(gobject.GObject):
         self.commands_async.append(self.SUB_BUILD_RECIPES)
         self.run_next_command(self.GENERATE_PACKAGES)
 
-    def generate_image(self, image, base_image, image_packages=[], toolchain_packages=[], default_task="build"):
+    def generate_image(self, image, base_image, image_packages=[], toolchain=False, default_task="build"):
         self.image = image
         self.base_image = base_image
         self.package_queue = image_packages
-        self.toolchain_packages = toolchain_packages
         self.default_task = default_task
         self.runCommand(["setPrePostConfFiles", "conf/.hob.conf", ""])
         self.commands_async.append(self.SUB_PARSE_CONFIG)
