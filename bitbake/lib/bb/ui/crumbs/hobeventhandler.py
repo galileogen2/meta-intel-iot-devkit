@@ -282,9 +282,6 @@ class HobHandler(gobject.GObject):
     def init_cooker(self):
         self.runCommand(["createConfigFile", ".hob.conf"])
 
-    def set_extra_inherit(self, bbclass):
-        self.append_var_in_file("INHERIT", bbclass, ".hob.conf")
-
     def set_distro(self, distro):
         self.set_var_in_file("DISTRO", distro, "local.conf")
 
