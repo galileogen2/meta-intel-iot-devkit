@@ -189,8 +189,7 @@ class HobHandler(gobject.GObject):
             reparse = self.runCommand(["getVariable", "BB_INVALIDCONF"]) or None
             if reparse is True:
                 self.set_var_in_file("BB_INVALIDCONF", False, "local.conf")
-                self.runCommand(["setPrePostConfFiles", "conf/.hob.conf", ""])
-                self.commands_async.prepend(self.SUB_PARSE_CONFIG)
+                self.runCommand(["parseConfigurationFiles", "", ""])
             self.run_next_command()
 
         elif isinstance(event, bb.event.SanityCheckFailed):
@@ -278,9 +277,6 @@ class HobHandler(gobject.GObject):
             self.display_error()
 
         return
-
-    def init_cooker(self):
-        self.runCommand(["createConfigFile", ".hob.conf"])
 
     def set_distro(self, distro):
         self.set_var_in_file("DISTRO", distro, "local.conf")
