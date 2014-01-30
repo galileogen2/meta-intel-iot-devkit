@@ -1094,6 +1094,10 @@ class RunQueue:
         except bb.runqueue.TaskFailure:
             raise
         except SystemExit:
+            try:
+                self.teardown_workers()
+            except:
+                pass
             raise
         except:
             logger.error("An uncaught exception occured in runqueue, please see the failure below:")
