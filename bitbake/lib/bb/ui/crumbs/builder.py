@@ -199,6 +199,7 @@ class Parameters:
         self.core_base = params["core_base"]
         self.build_dir = os.getcwd()
         self.tmpdir = params["tmpdir"]
+        self.distro = params["distro"]
 
         self.staging_dir_native = params["staging_dir_native"]
         self.staging_kernel_dir = params["staging_kernel_dir"]
@@ -269,6 +270,7 @@ class Builder(gtk.Window):
         self.previous_step = None
 
         self.stopping = False
+        self.ignore_next_completion = False
 
         # recipe model and package model
         self.recipe_model = recipe_model
@@ -279,6 +281,7 @@ class Builder(gtk.Window):
 
         # Indicate whether the UI is working
         self.sensitive = True
+        self.request_pkg_info = False
 
         # Indicate whether the sanity check ran
         self.sanity_checked = False
@@ -394,14 +397,12 @@ class Builder(gtk.Window):
         self.configuration.curr_mach = self.handler.runCommand(["getVariable", "MACHINE"]) or "clanton"
         self.switch_page(self.RCPPKGINFO_POPULATING)
         # Parse recipes
-        self.set_user_config()
         self.handler.generate_recipes()
 
     def generate_packages_async(self, log = False):
         self.switch_page(self.PACKAGE_GENERATING)
         # Build packages
         _, all_recipes = self.recipe_model.get_selected_recipes()
-        self.set_user_config()
         self.handler.reset_build()
         self.handler.generate_packages(all_recipes, self.configuration.default_task)
 
@@ -416,7 +417,6 @@ class Builder(gtk.Window):
         self.switch_page(self.FAST_IMAGE_GENERATING)
         # Build packages
         _, all_recipes = self.recipe_model.get_selected_recipes()
-        self.set_user_config()
         self.handler.reset_build()
         self.handler.generate_packages(all_recipes, self.configuration.default_task)
 
@@ -424,7 +424,6 @@ class Builder(gtk.Window):
         self.switch_page(self.IMAGE_GENERATING)
         self.handler.reset_build()
         # Build image
-        self.set_user_config()
         toolchain_packages = []
         base_image = None
         if self.configuration.selected_image == self.recipe_model.__custom_image__:
@@ -512,13 +511,16 @@ class Builder(gtk.Window):
         self.previous_step = self.current_step
         self.current_step = next_step
 
-    def set_user_config(self):
-        image = self.configuration.selected_image
-        if image:
-            if image == self.recipe_model.__custom_image__:
-                image = self.configuration.initial_selected_image
-            self.parameters.distro = self.parameters.image_list[image]
+    def set_distro_packages(self, distro):
+        ''' Set the DISTRO for the purposes of getting the cached package list'''
+        if distro != self.parameters.distro:
+            self.ignore_next_completion = True
+            self.request_pkg_info = True
+            self.handler.reset_cooker()
+            self.parameters.distro = distro
             self.handler.set_distro(self.parameters.distro)
+            self.handler.runCommand(["parseConfigurationFiles", "", ""])
+            self.handler.runCommand(["triggerEvent", "bb.event.RequestPackageInfo()"])
 
     def update_recipe_model(self, selected_image, selected_recipes):
         self.recipe_model.set_selected_image(selected_image)
@@ -559,6 +561,10 @@ class Builder(gtk.Window):
         self.parameters.all_package_formats = formats
 
     def handler_command_succeeded_cb(self, handler, initcmd):
+        if self.ignore_next_completion:
+            self.ignore_next_completion = False
+            return
+
         if initcmd == self.handler.GENERATE_CONFIGURATION:
             if not self.configuration.curr_mach:
                 self.configuration.curr_mach = self.handler.runCommand(["getVariable", "HOB_MACHINE"]) or ""
@@ -576,7 +582,8 @@ class Builder(gtk.Window):
         elif initcmd == self.handler.POPULATE_PACKAGEINFO:
             if self.current_step == self.RCPPKGINFO_POPULATING:
                 self.switch_page(self.RCPPKGINFO_POPULATED)
-                self.rcppkglist_populated()
+                self.image_configuration_page.update_image_combo(self.configuration.selected_image)
+                #self.rcppkglist_populated()
                 return
 
             self.rcppkglist_populated()
@@ -616,6 +623,7 @@ class Builder(gtk.Window):
             self.window.set_cursor(None)
         else:
             self.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
+            bb.ui.crumbs.utils.wait(0.1)
         self.sensitive = sensitive
 
 
@@ -623,7 +631,8 @@ class Builder(gtk.Window):
         self.window_sensitive(False)
 
     def handler_data_generated_cb(self, handler):
-        self.window_sensitive(True)
+        if not self.request_pkg_info:
+            self.window_sensitive(True)
 
     def rcppkglist_populated(self):
         selected_image = self.configuration.selected_image
@@ -631,11 +640,10 @@ class Builder(gtk.Window):
         selected_packages = self.configuration.selected_packages[:]
         user_selected_packages = self.configuration.user_selected_packages[:]
 
-        if selected_image != self.recipe_model.__custom_image__:
-            self.image_configuration_page.update_image_combo(selected_image)
-            self.image_configuration_page.update_image_desc()
         self.update_recipe_model(selected_image, selected_recipes)
         self.update_package_model(selected_packages, user_selected_packages)
+        self.request_pkg_info = False
+        self.window_sensitive(True)
 
     def recipelist_changed_cb(self, recipe_model):
         self.recipe_details_page.refresh_selection()
