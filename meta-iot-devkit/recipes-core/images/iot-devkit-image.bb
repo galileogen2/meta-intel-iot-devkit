@@ -23,15 +23,8 @@ IMAGE_FEATURES += "package-management"
 #ROOTFS_POSTPROCESS_COMMAND += "remove_packaging_data_files ; "
 
 IMAGE_INSTALL += "kernel-modules"
-IMAGE_INSTALL += "ethtool"
-IMAGE_INSTALL += "strace"
-IMAGE_INSTALL += "ppp"
-IMAGE_INSTALL += "linuxptp"
-IMAGE_INSTALL += "libstdc++"
-IMAGE_INSTALL += "sysstat"
 
 IMAGE_INSTALL += "python python-modules python-numpy"
-IMAGE_INSTALL += "alsa-lib alsa-utils alsa-tools"
 IMAGE_INSTALL += "wireless-tools"
 IMAGE_INSTALL += "wpa-supplicant"
 IMAGE_INSTALL += "openssh"
@@ -40,6 +33,7 @@ IMAGE_INSTALL += "nodejs"
 IMAGE_INSTALL += "linux-firmware-iwlwifi-6000g2a-6"
 IMAGE_INSTALL += "linux-firmware-iwlwifi-135-6"
 IMAGE_INSTALL += "bluez4"
+IMAGE_INSTALL += "connman"
 
 IMAGE_INSTALL += "avahi"
 

@@ -2,6 +2,10 @@ require iot-devkit-prof-image.bb
 
 DESCRIPTION = "A fully functional image to be placed on an SD card with full profiling and dev tools"
 
+IMAGE_INSTALL += "ethtool"
+IMAGE_INSTALL += "strace"
+IMAGE_INSTALL += "sysstat"
+
 IMAGE_INSTALL += "cmake"
 IMAGE_INSTALL += "binutils"
 IMAGE_INSTALL += "packagegroup-core-tools-profile"
