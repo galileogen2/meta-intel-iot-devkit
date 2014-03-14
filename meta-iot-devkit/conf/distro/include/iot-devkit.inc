@@ -23,3 +23,7 @@ SDKMACHINE ?= "i686"
 SSTATE_DIR ?= "${TOPDIR}/../devkit-cache/sstate-cache"
 CACHE_forcevariable = "${TOPDIR}/../devkit-cache/cache"
 PERSISTENT_DIR = "${TOPDIR}/../devkit-cache/persistent"
+
+DISTRO_FEATURES = "argp ext2 largefile usbgadet usbhost wifi nfs zeroconf pci nfc bluetooth ${DISTRO_FEATURES_LIBC}"
+
+DEFAULT_TIMEZONE ?= "Europe/London"
