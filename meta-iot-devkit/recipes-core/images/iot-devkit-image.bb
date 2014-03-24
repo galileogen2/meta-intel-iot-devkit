@@ -43,4 +43,6 @@ IMAGE_INSTALL += "libhd44780"
 
 IMAGE_INSTALL += "packagegroup-core-eclipse-debug"
 
+IMAGE_INSTALL += "opencv python-opencv"
+
 EXTRA_IMAGEDEPENDS = "grub-conf"

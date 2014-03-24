@@ -1,1 +1,1 @@
-PACKAGECONFIG ??= "eigen gtk jpeg png tiff v4l"
+PACKAGECONFIG ??= "eigen jpeg png tiff v4l"
