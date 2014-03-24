@@ -32,8 +32,9 @@ IMAGE_INSTALL += "nodejs"
 
 IMAGE_INSTALL += "linux-firmware-iwlwifi-6000g2a-6"
 IMAGE_INSTALL += "linux-firmware-iwlwifi-135-6"
-IMAGE_INSTALL += "bluez4"
+IMAGE_INSTALL += "bluez5"
 IMAGE_INSTALL += "connman"
+IMAGE_INSTALL += "connman-client"
 
 IMAGE_INSTALL += "avahi"
 
