@@ -11,4 +11,4 @@ IMAGE_INSTALL += "binutils"
 IMAGE_INSTALL += "packagegroup-core-buildessential"
 
 IMAGE_FEATURES += "dev-pkgs tools-sdk"
-EXTRA_IMAGE_FEATURES = "debug-tweaks tools-testapps"
+EXTRA_IMAGE_FEATURES = "debug-tweaks"
