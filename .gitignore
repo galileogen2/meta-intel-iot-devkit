@@ -20,6 +20,7 @@ meta-*/
 !meta-hob
 !meta-yocto
 !meta-yocto-bsp
+!meta-oe/meta-filesystems
 bitbake/doc/manual/html/
 bitbake/doc/manual/pdf/
 bitbake/doc/manual/txt/
