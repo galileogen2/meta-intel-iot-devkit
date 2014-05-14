@@ -33,7 +33,6 @@ meta-oe/*
     Meta-OpenEmbedded Layer
     openembedded-devel@lists.openembedded.org
     
-meta-intel/*
 meta-iot-devkit/*
 meta-clanton-bsp/*
 meta-galileo/*
