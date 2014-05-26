@@ -1,0 +1,32 @@
+From 5fb01b667a56d65ccb2b1174df9fe7190a5349f2 Mon Sep 17 00:00:00 2001
+From: Jukka Rissanen <jukka.rissanen@linux.intel.com>
+Date: Wed, 13 Mar 2013 11:17:24 +0200
+Subject: [PATCH 3/3] systemd: Use environment file for connman-vpnd debug
+ options
+
+Upstream-Status: Denied
+
+Not accepted as distros can override the default ConnMan service file.
+
+Signed-off-by: Jukka Rissanen <jukka.rissanen@linux.intel.com>
+---
+ vpn/connman-vpn.service.in | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/vpn/connman-vpn.service.in b/vpn/connman-vpn.service.in
+index ec02a86..2472f00 100644
+--- a/vpn/connman-vpn.service.in
++++ b/vpn/connman-vpn.service.in
+@@ -5,7 +5,8 @@ After=syslog.target
+ [Service]
+ Type=dbus
+ BusName=net.connman.vpn
+-ExecStart=@prefix@/sbin/connman-vpnd -n
++EnvironmentFile=-@sysconfdir@/connman/connman-vpnd.env
++ExecStart=@prefix@/sbin/connman-vpnd -n $DEBUG
+ StandardOutput=null
+ 
+ [Install]
+-- 
+1.7.11.4
+
