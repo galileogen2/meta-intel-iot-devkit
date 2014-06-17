@@ -11,7 +11,7 @@ pstage/
 scripts/oe-git-proxy-socks
 sources/
 meta-*/
-!meta-clanton-bsp
+!meta-quark-bsp
 !meta-intel
 !meta-iot-devkit
 !meta-galileo
