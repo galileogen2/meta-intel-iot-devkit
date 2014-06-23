@@ -4,7 +4,7 @@ load_drivers()
 {
     while IFS= read -r line; do
       modprobe $line
-    done < "/etc/modules-load.quark/$1.conf"
+    done < "/etc/modules-load.galileo/$1.conf"
 }
 
 do_board()
