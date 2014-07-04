@@ -1,0 +1,44 @@
+From 5365d78227f3c44338079e8c9c69494d038bfa6c Mon Sep 17 00:00:00 2001
+From: Jukka Rissanen <jukka.rissanen@linux.intel.com>
+Date: Wed, 13 Mar 2013 11:15:21 +0200
+Subject: [PATCH 1/3] doc: Debugging in host that uses systemd
+
+Upstream-Status: Denied
+
+Not accepted as distros can override the default ConnMan service file.
+
+Signed-off-by: Jukka Rissanen <jukka.rissanen@linux.intel.com>
+---
+ README | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/README b/README
+index bfb246a..e97b536 100644
+--- a/README
++++ b/README
+@@ -246,6 +246,22 @@ Following environment variables can be used:
+ Example:
+     CONNMAN_WEB_DEBUG=1 src/connmand -n
+ 
++If the host is using systemd when starting ConnMan, then one can activate
++debugging easily by creating /etc/connman/connmand.env file and setting
++debug options there. By default the env file does not exist.
++
++The following example would activate debugging in src/s*.c files and
++also turn on Internet connectivity check debugging if placed into
++connmand.env file:
++    DEBUG=-d src/s*.c
++    CONNMAN_WEB_DEBUG=1
++
++Note that one should not use quotation marks in env file as the systemd
++will not use shell to expand them.
++
++For connman-vpnd daemon debugging, a similiar /etc/connman/connman-vpnd.env
++file can be created.
++
+ 
+ Kernel configuration
+ ====================
+-- 
+1.7.11.4
+

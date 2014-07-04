@@ -11,7 +11,7 @@ pstage/
 scripts/oe-git-proxy-socks
 sources/
 meta-*/
-!meta-clanton-bsp
+!meta-quark-bsp
 !meta-intel
 !meta-iot-devkit
 !meta-galileo
@@ -21,6 +21,7 @@ meta-*/
 !meta-yocto
 !meta-yocto-bsp
 !meta-oe/meta-filesystems
+!meta-eca
 bitbake/doc/manual/html/
 bitbake/doc/manual/pdf/
 bitbake/doc/manual/txt/

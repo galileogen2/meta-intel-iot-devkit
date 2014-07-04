@@ -1,0 +1,31 @@
+From 656ff42ff42da965865cc6e012404d820692cf71 Mon Sep 17 00:00:00 2001
+From: Jukka Rissanen <jukka.rissanen@linux.intel.com>
+Date: Wed, 13 Mar 2013 11:16:33 +0200
+Subject: [PATCH 2/3] systemd: Use environment file for connmand debug options
+
+Upstream-Status: Denied
+
+Not accepted as distros can override the default ConnMan service file.
+
+Signed-off-by: Jukka Rissanen <jukka.rissanen@linux.intel.com>
+---
+ src/connman.service.in | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/connman.service.in b/src/connman.service.in
+index 2e9e4d5..fa57d4e 100644
+--- a/src/connman.service.in
++++ b/src/connman.service.in
+@@ -6,7 +6,8 @@ After=syslog.target
+ Type=dbus
+ BusName=net.connman
+ Restart=on-failure
+-ExecStart=@prefix@/sbin/connmand -n
++EnvironmentFile=-@sysconfdir@/connman/connmand.env
++ExecStart=@prefix@/sbin/connmand -n $DEBUG
+ StandardOutput=null
+ 
+ [Install]
+-- 
+1.7.11.4
+

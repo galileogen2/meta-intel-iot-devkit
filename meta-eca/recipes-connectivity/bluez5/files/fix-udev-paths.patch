@@ -1,0 +1,35 @@
+Add udevdir/udevrulesdir options
+
+Upstream-Status: Inappropriate [configuration]
+Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
+Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
+
+Index: bluez-5.0/Makefile.am
+===================================================================
+--- bluez-5.0.orig/Makefile.am	2012-12-24 19:46:54.000000000 +0200
++++ bluez-5.0/Makefile.am	2013-01-30 14:33:15.760615474 +0200
+@@ -175,7 +175,7 @@
+ include Makefile.obexd
+ 
+ if HID2HCI
+-rulesdir = @UDEV_DIR@/rules.d
++rulesdir = @UDEV_RULES_DIR@
+ 
+ rules_DATA = tools/97-hid2hci.rules
+ 
+Index: bluez-5.0/configure.ac
+===================================================================
+--- bluez-5.0.orig/configure.ac	2012-12-24 19:46:54.000000000 +0200
++++ bluez-5.0/configure.ac	2013-01-30 14:34:59.068613895 +0200
+@@ -160,6 +160,11 @@
+ 	AC_SUBST(UDEV_DIR, [${path_udevdir}])
+ fi
+ 
++AC_ARG_WITH([udevrulesdir],
++    AS_HELP_STRING([--with-udevrulesdir=DIR], [udev rules directory]),
++    [], [with_udevrulesdir=/lib/udev/rules.d])
++AC_SUBST([UDEV_RULES_DIR], [$with_udevrulesdir])
++
+ AM_CONDITIONAL(HID2HCI, test "${enable_tools}" != "no" &&
+ 		test "${enable_udev}" != "no" && test "${enable_usb}" != "no")
+ 

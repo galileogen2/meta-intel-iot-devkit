@@ -32,6 +32,10 @@ meta-yocto/*
 meta-oe/*
     Meta-OpenEmbedded Layer
     openembedded-devel@lists.openembedded.org
+
+meta-eca/*
+    Embedded Connectivity Appliance (ECA) support
+    Jukka Rissanen <jukka.rissanen@linux.intel.com>
     
 meta-iot-devkit/*
 meta-clanton-bsp/*
