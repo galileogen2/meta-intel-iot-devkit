@@ -38,7 +38,7 @@ meta-eca/*
     Jukka Rissanen <jukka.rissanen@linux.intel.com>
     
 meta-iot-devkit/*
-meta-clanton-bsp/*
+meta-quark-bsp/*
 meta-galileo/*
     Intel Specific Layers
     meta-intel@lists.yoctoproject.org
