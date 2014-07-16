@@ -357,6 +357,11 @@ class PartitionedMount(Mount):
                                 (p['num'], d['disk'].device))
                     self.__run_parted(["-s", d['disk'].device, "set",
                                        "%d" % p['num'], "lba", "off"])
+                    # hack to change the partition type to W95 FAT32 (0x0b)
+                    print "Using sfdisk to change the partition id on " + d['disk'].device
+                    # note that fat partition is first so partition id is not required
+                    os.system("sfdisk --id " + d['disk'].device + " 1 b")
+
 
         # If the partition table format is "gpt", find out PARTUUIDs for all
         # the partitions. And if users specified custom parition type UUIDs,
