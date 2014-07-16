@@ -287,13 +287,7 @@ class PartitionedMount(Mount):
             args.extend([fstype])
         args.extend(["%d" % start, "%d" % end])
 
-        ret = self.__run_parted(args)
-        if fstype == "fat16":
-            # hack to change the partition type to W95 FAT32 (LBA) (0x0C)
-            print "Using fdisk to change the partition id on " + device
-            # note that fat partition is first so partition id is not required
-            os.system("echo 't\n c\n w\n' | fdisk " + device)
-        return ret
+        return self.__run_parted(args)
 
     def __format_disks(self):
         self.layout_partitions()
@@ -363,11 +357,6 @@ class PartitionedMount(Mount):
                                 (p['num'], d['disk'].device))
                     self.__run_parted(["-s", d['disk'].device, "set",
                                        "%d" % p['num'], "lba", "off"])
-                    # hack to change the partition type to W95 FAT32 (LBA) (0x0C)
-                    print "Using fdisk to change the partition id on " + d['disk'].device
-                    # note that fat partition is first so partition id is not required
-                    os.system("echo 't\n 6\n w\n' | fdisk " + d['disk'].device)
-
 
         # If the partition table format is "gpt", find out PARTUUIDs for all
         # the partitions. And if users specified custom parition type UUIDs,
