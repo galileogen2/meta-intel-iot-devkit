@@ -93,6 +93,8 @@ simlink_node_modules() {
 install_wyliodrin() {
   # Wyliodrin requires the boot partition to be mounted as /media/card
   install -d ${IMAGE_ROOTFS}/media/card
+  # to maintain compatibility with arduino SD lib
+  cd ${IMAGE_ROOTFS}/media; ln -s card mmcblk0p1
 }
 
 EXTRA_IMAGEDEPENDS = "grub-conf"
