@@ -3,13 +3,15 @@ meta-intel-iot-devkit
 
 This is the distro layer for the Intel IoT developer kit. This layer is a
 distro layer meant to build a galileo gen1/2 image on either SPI or a uSD card.
+The dependencies are meant to be placed inside a poky. Currently only daisy is
+tested.
 
 Dependencies
 ============
 
 This layer depends on:
 
-  URI: git://git.openembedded.org/openembedded-core
+  URI: git://git.openembedded.org/meta-openembedded
   branch: daisy
 
   URI: git://git.yoctoproject.org/meta-intel-quark
