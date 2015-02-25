@@ -95,6 +95,8 @@ install_wyliodrin() {
   install -d ${IMAGE_ROOTFS}/media/card
   # to maintain compatibility with arduino SD lib
   cd ${IMAGE_ROOTFS}/media; ln -s card mmcblk0p1
+  # we add a line in fstab to automount the uSD card /boot partition
+  echo "/dev/mmcblk0p1 /media/card auto defaults 0  0" >> ${IMAGE_ROOTFS}/etc/fstab
 }
 
 EXTRA_IMAGEDEPENDS = "grub-conf"
