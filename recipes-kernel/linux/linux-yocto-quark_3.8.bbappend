@@ -10,7 +10,7 @@ module_autoload_pppox = "pppox"
 module_autoload_pppoe = "pppoe"
 
 # find defconfig path
-FILESEXTRAPATHS := "${THISDIR}/${PN}"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 SRC_URI += "file://devkitcamera.cfg"
 SRC_URI += "file://enable_systemd.cfg"
