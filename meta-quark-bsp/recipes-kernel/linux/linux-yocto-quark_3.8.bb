@@ -90,6 +90,7 @@ SRC_URI += "file://0018-Quark-sensors-quark.patch"
 SRC_URI += "file://0019-Quark-SC-SPI-quark.patch"
 SRC_URI += "file://0020-Quark-IIO-quark.patch"
 SRC_URI += "file://0021-Quark-SPI-flash-quark.patch"
+SRC_URI += "file://0022-mfd-lpc_sch-enable-Intel-Quark-X1000-WDT.patch"
 SRC_URI += "file://0001-libtraceevent-Remove-hard-coded-include-to-usr-local.patch"
 SRC_URI += "file://uart-1.0.patch"
 

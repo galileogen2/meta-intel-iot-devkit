@@ -1,0 +1,28 @@
+From 272a78633145646908fc2c18182c38def3176d76 Mon Sep 17 00:00:00 2001
+From: Ong Boon Leong <boon.leong.ong@intel.com>
+Date: Mon, 23 Mar 2015 13:10:04 +0800
+Subject: [PATCH] mfd: lpc_sch: enable Intel Quark X1000 WDT
+
+Intel Quark X1000 uses IE6XX Watchdog timer. So, we enable it
+here through lpc_sch driver probing.
+
+Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
+---
+ drivers/mfd/lpc_sch.c |    1
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/mfd/lpc_sch.c b/drivers/mfd/lpc_sch.c
+index 4afc687..1e88fa3 100644
+--- a/drivers/mfd/lpc_sch.c
++++ b/drivers/mfd/lpc_sch.c
+@@ -183,6 +183,7 @@ static int lpc_sch_probe(struct pci_dev *dev,
+ 	}
+ 
+ 	if (id->device == PCI_DEVICE_ID_INTEL_ITC_LPC
++	 || id->device == PCI_DEVICE_ID_INTEL_QUARK_ILB
+ 	 || id->device == PCI_DEVICE_ID_INTEL_CENTERTON_ILB) {
+ 		pci_read_config_dword(dev, WDTBASE, &base_addr_cfg);
+ 		if (!(base_addr_cfg & (1 << 31))) {
+-- 
+1.7.9.5
+
