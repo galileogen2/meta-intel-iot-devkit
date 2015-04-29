@@ -50,7 +50,6 @@ IMAGE_INSTALL += "lighttpd"
 
 IMAGE_INSTALL += "mraa upm"
 IMAGE_INSTALL += "timedate-scripts"
-IMAGE_INSTALL += "wyliodrin-server-nodejs"
 IMAGE_INSTALL += "iotkit-agent"
 IMAGE_INSTALL += "xdk-daemon"
 
@@ -63,7 +62,7 @@ PACKAGE_EXCLUDE_COMPLEMENTARY = "lib32-.*"
 # exclude lib32 packages from world builds
 EXCLUDE_FROM_WORLD_virtclass-multilib-lib32 = "1"
 
-ROOTFS_POSTPROCESS_COMMAND += "simlink_ld_uclibc ; install_repo ; simlink_node_modules ; install_xdk ; install_wyliodrin ;"
+ROOTFS_POSTPROCESS_COMMAND += "simlink_ld_uclibc ; install_repo ; simlink_node_modules ; install_xdk ;"
 
 simlink_ld_uclibc() {
   # This allows uclibc compiled binaries to find the uclibc loader note that
