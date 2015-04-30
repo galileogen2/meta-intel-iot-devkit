@@ -100,3 +100,6 @@ install_wyliodrin() {
 }
 
 EXTRA_IMAGEDEPENDS = "grub-conf"
+
+# Magic flag that removes the issue when building lib32- uclibc libs in SDK
+TOOLCHAIN_NEED_CONFIGSITE_CACHE = ""
