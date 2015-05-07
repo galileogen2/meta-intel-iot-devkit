@@ -1,13 +1,16 @@
-module_autoload_iwlwifi_iot-devkit = "iwlwifi"
-module_autoload_btusb = "btusb"
+
+KERNEL_MODULE_AUTOLOAD_append_iot-devkit = " iwlwifi"
+KERNEL_MODULE_AUTOLOAD += "btusb"
 
 # swap g_serial for g_acm_ms
-module_autoload_pch_udc_iot-devkit = " pch_udc g_acm_ms"
+KERNEL_MODULE_AUTOLOAD_append_iot-devkit = " pch_udc g_acm_ms"
+
+KERNEL_MODULE_PROBECONF_append_iot-devkit = " g_acm_ms"
 module_conf_g_acm_ms_iot-devkit = "options g_acm_ms file=/dev/mmcblk0p1 removable=1 idVendor=0x8086 idProduct=0xDEAD"
 
 # PPP module autoload
-module_autoload_pppox = "pppox"
-module_autoload_pppoe = "pppoe"
+KERNEL_MODULE_AUTOLOAD += "pppox"
+KERNEL_MODULE_AUTOLOAD += "pppoe"
 
 # find defconfig path
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
