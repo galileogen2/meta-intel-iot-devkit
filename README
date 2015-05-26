@@ -12,19 +12,16 @@ Dependencies
 This layer depends on:
 
   URI: git://git.openembedded.org/meta-openembedded
-  branch: daisy
+  branch: dizzy
 
   URI: git://git.yoctoproject.org/meta-intel-quark
-  branch: daisy
+  branch: dizzy
 
   URI: git://git.yoctoproject.org/meta-intel-galileo
-  branch: daisy
-
-  URI: git://git.yoctoproject.org/meta-eca
-  branch: daisy
+  branch: dizzy
 
   URI: git://git.yoctoproject.org/meta-intel-iot-middleware
-  branch: daisy
+  branch: dizzy
 
 Guidelines for submitting patches
 =================================
