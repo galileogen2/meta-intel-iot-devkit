@@ -8,14 +8,14 @@
 if [[ ! -f /etc/version ]]; then
   echo "error: set-initial-date - didn't find /etc/version"
   exit 1
-fi 
-d0=$(cat /etc/version) 
+fi
+d0=$(cat /etc/version)
 # timestamp date
-d1=$(date -r /etc/version +'%Y%m%d%H%M')
+d1=$(date -r /etc/version +'%4Y%2m%2d%2H%2M')
 # current date
-d2=$(date +'%Y%m%d%H%M')
+d2=$(date +'%4Y%2m%2d%2H%2M')
 
-# take the latest date - will also work if $d0 is empty 
+# take the latest date - will also work if $d0 is empty
 if [[ $d0 -gt $d1 ]]; then
   d=$d0
 else
@@ -27,17 +27,15 @@ if [[ $d2 -gt $d ]]; then
   exit 0
 fi
 
-# timedatectl requires d-bus - 
-# we attempt to set date & time as early as possible hence we use 'date' 
-# rather than 
+# timedatectl requires d-bus -
+# we attempt to set date & time as early as possible hence we use 'date'
+# rather than
 # timedatectl set-time "${d:0:4}-${d:4:2}-${d:6:2} ${d:8:2}:${d:10:2}:00"
 
-# set date                                  
-date -s ${d::8} > /dev/null
-# set time                                  
-date -s ${d:8} > /dev/null
-# set hwclock in UTZ
+# set date
+date -s ${d--8} > /dev/null
+# set time
+date -s ${d-8} > /dev/null
+# set hwclock in UTC
 export TZ=UTC
 hwclock -w
-
-
