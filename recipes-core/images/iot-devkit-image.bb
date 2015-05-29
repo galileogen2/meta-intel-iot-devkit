@@ -52,6 +52,7 @@ IMAGE_INSTALL += "mraa upm"
 IMAGE_INSTALL += "timedate-scripts"
 IMAGE_INSTALL += "iotkit-agent"
 IMAGE_INSTALL += "xdk-daemon"
+IMAGE_INSTALL += "iotkit-comm-c iotkit-comm-js iotkit-lib-c"
 
 IMAGE_INSTALL += "packagegroup-core-eclipse-debug"
 
