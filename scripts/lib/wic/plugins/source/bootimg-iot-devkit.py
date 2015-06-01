@@ -29,44 +29,21 @@ import shutil
 import re
 import tempfile
 
-from mic import chroot, msger
-from mic.utils import misc, fs_related, errors, runner, cmdln
-from mic.conf import configmgr
-from mic.plugin import pluginmgr
-from mic.utils.partitionedfs import PartitionedMount
-import mic.imager.direct as direct
-from mic.pluginbase import SourcePlugin
-from mic.utils.oe.misc import *
+#from wic import chroot msgery
+from wic.utils import misc, fs_related, errors, runner, cmdln
+from wic.conf import configmgr
+from wic.plugin import pluginmgr
+#from wic.utils.partitionedfs import PartitionedMount
+import wic.imager.direct as direct
+from wic.pluginbase import SourcePlugin
+from wic.utils.oe.misc import *
+
 
 class IOTDevkitPlugin(SourcePlugin):
     name = 'iot-devkit'
 
     @classmethod
-    def do_stage_partition(self, part, cr, workdir, oe_builddir, bootimg_dir,
-                           kernel_dir, native_sysroot):
-        """
-        Special content staging hook called before do_prepare_partition(),
-        normally empty.
-
-        For the iot-devkit, we need to stage just the boot/ dir in the
-        deploy dir.
-        """
-        if not bootimg_dir:
-            msger.error("Couldn't find DEPLOY_DIR_IMAGE, exiting\n")
-
-        # just so the result notes display it
-        cr.set_bootimg_dir(bootimg_dir)
-
-        hdddir = "%s/hdd/boot" % workdir
-        boot_dir = "%s/boot" % bootimg_dir
-        rm_cmd = "rm -rf %s" % workdir
-        exec_cmd(rm_cmd)
-
-        msger.debug("Copying %s to %s" % (boot_dir, hdddir))
-        shutil.copytree(bootimg_dir+"/boot/", hdddir)
-
-    @classmethod
-    def do_prepare_partition(self, part, cr, cr_workdir, oe_builddir, bootimg_dir,
+    def do_prepare_partition(self, part, source_params, cr, cr_workdir, oe_builddir, bootimg_dir,
                              kernel_dir, rootfs_dir, native_sysroot):
         """
         Called to do the actual content population for a partition i.e. it
@@ -74,6 +51,19 @@ class IOTDevkitPlugin(SourcePlugin):
         In this case, prepare content for the special iot-devkit boot
         partition.
         """
+        if not bootimg_dir:
+            msger.error("Couldn't find DEPLOY_DIR_IMAGE, exiting\n")
+
+        # just so the result notes display it
+        cr.set_bootimg_dir(bootimg_dir)
+
+        hdddir = "%s/hdd/boot" % cr_workdir
+        boot_dir = "%s/boot" % bootimg_dir
+        rm_cmd = "rm -rf %s" % cr_workdir
+        exec_cmd(rm_cmd)
+
+        msger.debug("Copying %s to %s" % (boot_dir, hdddir))
+        shutil.copytree(bootimg_dir+"/boot/", hdddir)
         staging_kernel_dir = kernel_dir
         staging_data_dir = bootimg_dir
 
@@ -84,7 +74,7 @@ class IOTDevkitPlugin(SourcePlugin):
         tmp = exec_cmd(install_cmd)
 
         du_cmd = "du -bks %s" % hdddir
-        rc, out = exec_cmd(du_cmd)
+        out = exec_cmd(du_cmd)
         blocks = int(out.split()[0])
 
         extra_blocks = part.get_extra_block_count(blocks)
@@ -101,6 +91,7 @@ class IOTDevkitPlugin(SourcePlugin):
         # track or mcopy will complain. Sectors are 512 bytes, and we
         # generate images with 32 sectors per track. This calculation is
         # done in blocks, thus the mod by 16 instead of 32.
+
         blocks += (16 - (blocks % 16))
 
         # dosfs image, created by mkdosfs
@@ -116,8 +107,9 @@ class IOTDevkitPlugin(SourcePlugin):
         exec_cmd(chmod_cmd)
 
         du_cmd = "du -Lbms %s" % bootimg
-        rc, out = exec_cmd(du_cmd)
+        out = exec_cmd(du_cmd)
         bootimg_size = out.split()[0]
 
         part.set_size(bootimg_size)
         part.set_source_file(bootimg)
+

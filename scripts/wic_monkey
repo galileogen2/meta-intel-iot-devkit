@@ -40,27 +40,27 @@ import logging
 # Wic is not a .py so we can't just 'import' it
 wic_script = os.path.abspath(os.path.dirname(os.path.abspath(sys.argv[0]))) + '/../../scripts/wic'
 wic_file = file(wic_script)
-wic = wic_file.read()
+wic_original = wic_file.read()
 # rename wic_create_subcommand so it doesn't override our func
-wic = wic.replace("def wic_create_subcommand","def __nothing__")
+wic_original = wic_original.replace("def wic_create_subcommand","def __nothing__")
 
 # Modules should be loaded from our current scripts dir too
 monkey_curr_path = os.path.abspath(os.path.dirname(os.path.abspath(sys.argv[0])))
 monkey_scripts_path = monkey_curr_path + '/../../scripts'
 sys.path = sys.path + [monkey_scripts_path + '/lib'] + [monkey_curr_path + '/lib']
 
-# load mic libs early
-import mic.utils.partitionedfs
+# load wic libs early
+import wic.utils.partitionedfs
 from image.help import *
 from image.engine import *
-from mic.plugin import pluginmgr
-import mic.conf
-import mic.creator
+from wic.plugin import pluginmgr
+import wic.conf
+import wic.creator
 
 def newcreate(self, *args, **kwargs):
-    pluginmgr._add_plugindir(monkey_scripts_path + '/lib/mic/plugins/imager')
-    pluginmgr._add_plugindir(monkey_scripts_path + '/lib/mic/plugins/source')
-#    pluginmgr.append_dirs(scripts_path + '/lib/mic/plugins/')
+    pluginmgr._add_plugindir(monkey_scripts_path + '/lib/wic/plugins/imager')
+    pluginmgr._add_plugindir(monkey_scripts_path + '/lib/wic/plugins/source')
+    pluginmgr.append_dirs(scripts_path + '/lib/wic/plugins/')
     pluginmgr._load_all()
     cmdln.Cmdln.__init__(self, *args, **kwargs)
     self._subcmds = []
@@ -78,7 +78,7 @@ def newcreate(self, *args, **kwargs):
         self._subcmds.append(subcmd)
 
 # replace constructor with one that will go look in local 'scripts' dir too
-mic.creator.Creator.__init__ = newcreate
+wic.creator.Creator.__init__ = newcreate
 
 def newformatdisks(self):
     self.layout_partitions()
@@ -186,7 +186,7 @@ def newformatdisks(self):
         del gpt_parser
 
 # function will use sfdisk to change parition id on vfat part type
-mic.utils.partitionedfs.PartitionedMount._PartitionedMount__format_disks = newformatdisks
+#wic.utils.partitionedfs.PartitionedMount._PartitionedMount__format_disks = newformatdisks
 
 # function will load wks file if full path is given
 def wic_create_subcommand(args, usage_str):
@@ -252,13 +252,18 @@ def wic_create_subcommand(args, usage_str):
             print "Couldn't get bitbake environment, exiting."
             sys.exit(1)
         set_bitbake_env_lines(bitbake_env_lines)
-        bootimg_dir = get_bitbake_var("DEPLOY_DIR_IMAGE")
-
     if options.image_name:
-        (rootfs_dir, kernel_dir, hdddir, staging_data_dir, native_sysroot) = \
+        (rootfs_dir, kernel_dir, bootimg_dir, native_sysroot) = \
             find_artifacts(options.image_name)
+    bootimg_dir = get_bitbake_var("DEPLOY_DIR_IMAGE")
 
     wks_file = args[0]
+
+    if not wks_file.endswith(".wks"):
+        wks_file = find_canned_image(scripts_path, wks_file)
+        if not wks_file:
+            print "No image named %s found, exiting.  (Use 'wic list images' to list available images, or specify a fully-qualified OE kickstart (.wks) filename)\n" % wks_file
+            sys.exit(1)
 
     image_output_dir = ""
     if options.outdir:
@@ -287,8 +292,6 @@ def wic_create_subcommand(args, usage_str):
         not_found = not_found_dir = ""
         if not os.path.isdir(rootfs_dir):
             (not_found, not_found_dir) = ("rootfs-dir", rootfs_dir)
-        elif not os.path.isdir(hdddir) and not os.path.isdir(staging_data_dir):
-            (not_found, not_found_dir) = ("bootimg-dir", bootimg_dir)
         elif not os.path.isdir(kernel_dir):
             (not_found, not_found_dir) = ("kernel-dir", kernel_dir)
         elif not os.path.isdir(native_sysroot):
@@ -312,8 +315,7 @@ def wic_create_subcommand(args, usage_str):
     rootfs_dir = rootfs_dir_to_args(krootfs_dir)
 
     wic_create(args, wks_file, rootfs_dir, bootimg_dir, kernel_dir,
-               native_sysroot, hdddir, staging_data_dir, scripts_path,
+               native_sysroot, scripts_path,
                image_output_dir, options.debug, options.properties_file)
-
-exec(wic)
+exec(wic_original)
 
