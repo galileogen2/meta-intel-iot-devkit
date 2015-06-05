@@ -14,7 +14,6 @@ IMAGE_ROOTFS_SIZE = "2048"
 
 #IMAGE_FSTYPES_remove = "cpio.lzma"
 NOISO = "1"
-NOHDD = "1"
 IMAGE_ROOTFS_SIZE = "307200"
 
 EXTRA_IMAGECMD_append_ext2 = " -N 2000"
@@ -57,13 +56,14 @@ IMAGE_INSTALL += "iotkit-comm-c iotkit-comm-js iotkit-lib-c"
 IMAGE_INSTALL += "packagegroup-core-eclipse-debug"
 
 # these are the only lib32-* libs we want on our image
-IMAGE_INSTALL += "lib32-uclibc lib32-uclibc-libm lib32-libstdc++ lib32-uclibc-libpthread"
+IMAGE_INSTALL_append_quark += "lib32-uclibc lib32-uclibc-libm lib32-libstdc++ lib32-uclibc-libpthread"
 # make sure no lib32-* libs get chosen by IMAGE_FEATURES
 PACKAGE_EXCLUDE_COMPLEMENTARY = "lib32-.*"
 # exclude lib32 packages from world builds
 EXCLUDE_FROM_WORLD_virtclass-multilib-lib32 = "1"
 
-ROOTFS_POSTPROCESS_COMMAND += "simlink_ld_uclibc ; install_repo ; simlink_node_modules ; install_xdk ;"
+ROOTFS_POSTPROCESS_COMMAND_append_quark += "simlink_ld_uclibc ; install_quark_repo ;"
+ROOTFS_POSTPROCESS_COMMAND += "install_xdk ; simlink_node_modules ;"
 
 simlink_ld_uclibc() {
   # This allows uclibc compiled binaries to find the uclibc loader note that
@@ -71,7 +71,7 @@ simlink_ld_uclibc() {
   cd ${IMAGE_ROOTFS}/lib/; ln -s ../lib32/ld-uClibc.so.0
 }
 
-install_repo() {
+install_quark_repo() {
   echo "src mraa-upm http://iotdk.intel.com/repos/1.5/intelgalactic" > ${IMAGE_ROOTFS}/etc/opkg/mraa-upm.conf
   echo "src iotdk-all http://iotdk.intel.com/repos/1.1/iotdk/all" > ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
   echo "src iotdk-i586 http://iotdk.intel.com/repos/1.1/iotdk/i586" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
@@ -99,7 +99,7 @@ install_wyliodrin() {
   echo "/dev/mmcblk0p1 /media/card auto defaults 0  0" >> ${IMAGE_ROOTFS}/etc/fstab
 }
 
-EXTRA_IMAGEDEPENDS = "grub-conf"
+EXTRA_IMAGEDEPENDS_append_quark = " grub-conf "
 
 # Magic flag that removes the issue when building lib32- uclibc libs in SDK
 TOOLCHAIN_NEED_CONFIGSITE_CACHE = ""
