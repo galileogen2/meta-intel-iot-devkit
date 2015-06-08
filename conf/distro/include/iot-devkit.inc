@@ -8,7 +8,7 @@ SANITY_TESTED_DISTROS = " \
 DISTRO_VERSION = "1.5"
 DISTRO_CODENAME = "panda"
 DISTRO_NAME = "iot-devkit (Intel IoT Development Kit)"
-MAINTAINER = "Yocto Devkit <yocto-devkit@linux.intel.com>"
+MAINTAINER = "Intel IoT Devkit team <meta-intel@yoctoproject.org>"
 
 # Changing these currently breaks the Eclipse plugin
 #TARGET_VENDOR = "-iotkit"
