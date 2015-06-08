@@ -1,4 +1,3 @@
-inherit systemd
 
 # make the sshdgenkeys service required by multi-user.target to make it generate keys on first boot
 do_compile_append() {
