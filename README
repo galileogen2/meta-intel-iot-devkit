@@ -2,16 +2,16 @@ meta-intel-iot-devkit
 =====================
 
 This is the distro layer for the Intel IoT developer kit. This layer is a
-distro layer meant to build a galileo gen1/2 image on either SPI or a uSD card.
-The dependencies are meant to be placed inside a poky. Currently only daisy is
-tested.
+distro layer meant to build a Galileo gen1/2 image on either SPI or a uSD card.
 
 Dependencies
 ============
 
-This layer depends on:
+This layer requires the dizzy branch of openembedded-core or poky, as
+well as the following additional layers:
 
   URI: git://git.openembedded.org/meta-openembedded
+  subdirs: meta-oe, meta-filesystems
   branch: dizzy
 
   URI: git://git.yoctoproject.org/meta-intel-quark
@@ -27,10 +27,11 @@ Guidelines for submitting patches
 =================================
 
 Please submit any patches to the meta-intel mailing list
-(meta-intel@yoctoproject.org). Also, if your patches are available via a public
-git repository, please also include a URL to the repo and branch containing
-your patches as that makes it easier for maintainers to grab and test your
-patches.
+(meta-intel@yoctoproject.org) using the subject prefix
+[meta-intel-iot-devkit]. Also, if your patches are available in a
+public git repository, please also include a URL to the repo and branch
+containing your patches as that makes it easier for maintainers to grab
+and test your patchset.
 
 Regardless of how you submit a patch or patchset, the patches should
 at minimum follow the suggestions outlined in the 'How to Submit a
@@ -51,7 +52,9 @@ they should:
 
   - If the change addresses a specific bug or issue that is associated
     with a bug-tracking ID, include a reference to that ID in your
-    detailed description in the following format: [YOCTO #<bug-id>].
+    detailed description. For for bugs filed in the Yocto Project
+    bug tracker at http://bugzilla.yoctoproject.org, use the following
+    format for the reference: [YOCTO #<bug-id>]
 
   - Pay attention to line length - please don't allow any particular
     line in the commit message to stretch past 72 characters.
