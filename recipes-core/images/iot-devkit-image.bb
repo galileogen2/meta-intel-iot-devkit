@@ -10,9 +10,6 @@ IMAGE_FSTYPES = "ext3 live"
 
 inherit core-image
 
-IMAGE_ROOTFS_SIZE = "2048"
-
-#IMAGE_FSTYPES_remove = "cpio.lzma"
 NOISO = "1"
 IMAGE_ROOTFS_SIZE = "307200"
 
@@ -59,8 +56,6 @@ IMAGE_INSTALL += "packagegroup-core-eclipse-debug"
 IMAGE_INSTALL_append_quark += "lib32-uclibc lib32-uclibc-libm lib32-libstdc++ lib32-uclibc-libpthread"
 # make sure no lib32-* libs get chosen by IMAGE_FEATURES
 PACKAGE_EXCLUDE_COMPLEMENTARY = "lib32-.*"
-# exclude lib32 packages from world builds
-EXCLUDE_FROM_WORLD_virtclass-multilib-lib32 = "1"
 
 ROOTFS_POSTPROCESS_COMMAND_append_quark += "simlink_ld_uclibc ; install_quark_repo ;"
 ROOTFS_POSTPROCESS_COMMAND += "install_xdk ; simlink_node_modules ;"
@@ -101,5 +96,3 @@ install_wyliodrin() {
 
 EXTRA_IMAGEDEPENDS_append_quark = " grub-conf "
 
-# Magic flag that removes the issue when building lib32- uclibc libs in SDK
-TOOLCHAIN_NEED_CONFIGSITE_CACHE = ""
