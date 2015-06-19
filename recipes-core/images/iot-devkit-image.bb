@@ -49,6 +49,7 @@ IMAGE_INSTALL += "timedate-scripts"
 IMAGE_INSTALL += "iotkit-agent"
 IMAGE_INSTALL += "xdk-daemon"
 IMAGE_INSTALL += "iotkit-comm-c iotkit-comm-js iotkit-lib-c"
+IMAGE_INSTALL_append_quark += "wyliodrin-server"
 
 IMAGE_INSTALL += "packagegroup-core-eclipse-debug"
 
@@ -57,7 +58,7 @@ IMAGE_INSTALL_append_quark += "lib32-uclibc lib32-uclibc-libm lib32-libstdc++ li
 # make sure no lib32-* libs get chosen by IMAGE_FEATURES
 PACKAGE_EXCLUDE_COMPLEMENTARY = "lib32-.*"
 
-ROOTFS_POSTPROCESS_COMMAND_append_quark += "simlink_ld_uclibc ; install_quark_repo ;"
+ROOTFS_POSTPROCESS_COMMAND_append_quark += "simlink_ld_uclibc ; install_quark_repo ; install_wyliodrin ; "
 ROOTFS_POSTPROCESS_COMMAND += "install_xdk ; simlink_node_modules ;"
 
 simlink_ld_uclibc() {
@@ -92,6 +93,9 @@ install_wyliodrin() {
   cd ${IMAGE_ROOTFS}/media; ln -s card mmcblk0p1
   # we add a line in fstab to automount the uSD card /boot partition
   echo "/dev/mmcblk0p1 /media/card auto defaults 0  0" >> ${IMAGE_ROOTFS}/etc/fstab
+  echo -n "arduinogalileo" > ${IMAGE_ROOTFS}/etc/wyliodrin/boardtype
+  mkdir -p ${IMAGE_ROOTFS}/wyliodrin/projects/mount
+  mkdir -p ${IMAGE_ROOTFS}/wyliodrin/projects/build
 }
 
 EXTRA_IMAGEDEPENDS_append_quark = " grub-conf "
