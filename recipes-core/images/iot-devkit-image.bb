@@ -59,12 +59,16 @@ IMAGE_INSTALL_append_quark += "lib32-uclibc lib32-uclibc-libm lib32-libstdc++ li
 PACKAGE_EXCLUDE_COMPLEMENTARY = "lib32-.*"
 
 ROOTFS_POSTPROCESS_COMMAND_append_quark += "simlink_ld_uclibc ; install_quark_repo ; install_wyliodrin ; "
-ROOTFS_POSTPROCESS_COMMAND += "install_xdk ; simlink_node_modules ;"
+ROOTFS_POSTPROCESS_COMMAND += "install_xdk ; simlink_node_modules ; remove_redis_server; "
 
 simlink_ld_uclibc() {
   # This allows uclibc compiled binaries to find the uclibc loader note that
   # binaries will not run unless LD_LIBRARY_PATH is set correctly
   cd ${IMAGE_ROOTFS}/lib/; ln -s ../lib32/ld-uClibc.so.0
+}
+
+remove_redis_server() {
+  rm ${IMAGE_ROOTFS}/etc/init.d/redis-server
 }
 
 install_quark_repo() {
