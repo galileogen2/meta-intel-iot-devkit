@@ -65,6 +65,8 @@ simlink_ld_uclibc() {
   # This allows uclibc compiled binaries to find the uclibc loader note that
   # binaries will not run unless LD_LIBRARY_PATH is set correctly
   cd ${IMAGE_ROOTFS}/lib/; ln -s ../lib32/ld-uClibc.so.0
+  # Remove g_serial.conf as we use another module
+  rm -f ${IMAGE_ROOTFS}/etc/modules-load.d/g_serial.conf
 }
 
 install_quark_repo() {
