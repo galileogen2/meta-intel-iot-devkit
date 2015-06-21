@@ -67,6 +67,8 @@ simlink_ld_uclibc() {
   cd ${IMAGE_ROOTFS}/lib/; ln -s ../lib32/ld-uClibc.so.0
   # Remove g_serial.conf as we use another module
   rm -f ${IMAGE_ROOTFS}/etc/modules-load.d/g_serial.conf
+  # make sure g_acm_ms loads last
+  mv ${IMAGE_ROOTFS}/etc/modules-load.d/g_acm_ms.conf ${IMAGE_ROOTFS}/etc/modules-load.d/z_g_acm_ms.conf
 }
 
 install_quark_repo() {
