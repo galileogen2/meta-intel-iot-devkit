@@ -59,6 +59,7 @@ IMAGE_INSTALL_append_quark += "lib32-uclibc lib32-uclibc-libm lib32-libstdc++ li
 PACKAGE_EXCLUDE_COMPLEMENTARY = "lib32-.*"
 
 ROOTFS_POSTPROCESS_COMMAND_append_quark += "simlink_ld_uclibc ; install_quark_repo ; install_wyliodrin ; "
+ROOTFS_POSTPROCESS_COMMAND_append_intel-core2-32 += "install_mmax_repo ;"
 ROOTFS_POSTPROCESS_COMMAND += "install_xdk ; simlink_node_modules ; "
 
 simlink_ld_uclibc() {
@@ -69,6 +70,14 @@ simlink_ld_uclibc() {
   rm -f ${IMAGE_ROOTFS}/etc/modules-load.d/g_serial.conf
   # make sure g_acm_ms loads last
   mv ${IMAGE_ROOTFS}/etc/modules-load.d/g_acm_ms.conf ${IMAGE_ROOTFS}/etc/modules-load.d/z_g_acm_ms.conf
+}
+
+install_mmax_repo() {
+  echo "src mraa-upm http://iotdk.intel.com/repos/1.5/intelgalactic" > ${IMAGE_ROOTFS}/etc/opkg/mraa-upm.conf
+  echo "src iotdk-all http://iotdk.intel.com/repos/1.1/iotdk/all" > ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src iotdk-i586 http://iotdk.intel.com/repos/1.1/iotdk/core2-32" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src iotdk-quark http://iotdk.intel.com/repos/1.1/iotdk/core2-32-intel-common" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src iotdk-x86 http://iotdk.intel.com/repos/1.1/iotdk/intel_core2_32" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
 }
 
 install_quark_repo() {
