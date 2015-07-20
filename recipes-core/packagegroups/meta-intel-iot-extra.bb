@@ -27,6 +27,7 @@ DEPENDS = " \
 	espeak \
 	udisks \
 	screen \
+	parse-embedded-sdks \
 	"
 
 inherit meta
