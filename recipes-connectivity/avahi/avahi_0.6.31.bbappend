@@ -15,6 +15,6 @@ do_install_append () {
 SYSTEMD_PACKAGES += "${PN}-autoipd"
 
 # using ${PN} in the following creates a variable shadowing warning
-FILES_avahi-autoipd_append += " ${sbindir}/avahi-autoipd-auto "
+FILES_avahi-autoipd_append += " ${systemd_unitdir}/system/avahi-autoipd.service"
 
 SYSTEMD_SERVICE_${PN}-autoipd = "avahi-autoipd.service"
