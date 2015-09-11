@@ -23,6 +23,9 @@ well as the following additional layers:
   URI: git://git.yoctoproject.org/meta-intel-iot-middleware
   branch: dizzy
 
+  URI: git@github.com:intel-iot-devkit/meta-java.git
+  branch: openjdk-8
+
 Guidelines for submitting patches
 =================================
 
