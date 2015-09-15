@@ -5,8 +5,8 @@ SANITY_TESTED_DISTROS = " \
             openSUSE-project-13.1 \n \
             "
 
-DISTRO_VERSION = "1.5"
-DISTRO_CODENAME = "panda"
+DISTRO_VERSION = "2.0"
+DISTRO_CODENAME = "lemur"
 DISTRO_NAME = "iot-devkit (Intel IoT Development Kit)"
 MAINTAINER = "Intel IoT Devkit team <meta-intel@yoctoproject.org>"
 

@@ -73,19 +73,19 @@ simlink_ld_uclibc() {
 }
 
 install_mmax_repo() {
-  echo "src mraa-upm http://iotdk.intel.com/repos/1.5/intelgalactic" > ${IMAGE_ROOTFS}/etc/opkg/mraa-upm.conf
-  echo "src iotdk-all http://iotdk.intel.com/repos/1.5/iotdk/all" > ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
-  echo "src iotdk-i586 http://iotdk.intel.com/repos/1.5/iotdk/core2-32" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
-  echo "src iotdk-quark http://iotdk.intel.com/repos/1.5/iotdk/core2-32-intel-common" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
-  echo "src iotdk-x86 http://iotdk.intel.com/repos/1.5/iotdk/intel_core2_32" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src mraa-upm http://iotdk.intel.com/repos/2.0/intelgalactic" > ${IMAGE_ROOTFS}/etc/opkg/mraa-upm.conf
+  echo "src iotdk-all http://iotdk.intel.com/repos/2.0/iotdk/all" > ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src iotdk-i586 http://iotdk.intel.com/repos/2.0/iotdk/core2-32" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src iotdk-quark http://iotdk.intel.com/repos/2.0/iotdk/core2-32-intel-common" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src iotdk-x86 http://iotdk.intel.com/repos/2.0/iotdk/intel_core2_32" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
 }
 
 install_quark_repo() {
-  echo "src mraa-upm http://iotdk.intel.com/repos/1.5/intelgalactic" > ${IMAGE_ROOTFS}/etc/opkg/mraa-upm.conf
-  echo "src iotdk-all http://iotdk.intel.com/repos/1.5/iotdk/all" > ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
-  echo "src iotdk-i586 http://iotdk.intel.com/repos/1.5/iotdk/i586" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
-  echo "src iotdk-quark http://iotdk.intel.com/repos/1.5/iotdk/quark" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
-  echo "src iotdk-x86 http://iotdk.intel.com/repos/1.5/iotdk/x86" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src mraa-upm http://iotdk.intel.com/repos/2.0/intelgalactic" > ${IMAGE_ROOTFS}/etc/opkg/mraa-upm.conf
+  echo "src iotdk-all http://iotdk.intel.com/repos/2.0/iotdk/all" > ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src iotdk-i586 http://iotdk.intel.com/repos/2.0/iotdk/i586" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src iotdk-quark http://iotdk.intel.com/repos/2.0/iotdk/quark" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
+  echo "src iotdk-x86 http://iotdk.intel.com/repos/2.0/iotdk/x86" >> ${IMAGE_ROOTFS}/etc/opkg/iotdk.conf
 }
 
 install_xdk() {
