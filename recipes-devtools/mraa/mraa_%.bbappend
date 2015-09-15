@@ -1,6 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI = "git://github.com/intel-iot-devkit/mraa.git;protocol=git;rev=5c7bab1c79c0d3102d299137335b19f2b632fafe \
+SRC_URI = "git://github.com/intel-iot-devkit/mraa.git;protocol=git;rev=e2aaa349ff42038dc56b7a4e0407b08e45e816c6 \
            file://0001-cmake-Change-the-install-path-of-the-Java-bindings-l.patch"
 
 PACKAGECONFIG ??= "python nodejs java"
