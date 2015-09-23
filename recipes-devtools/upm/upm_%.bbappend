@@ -1,7 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI = "git://github.com/intel-iot-devkit/upm.git;protocol=git;rev=f983719ef303e72518571bcf7f0ae4f379e1d0a4 \
-           file://0001-cmake-revert-to-depend-on-mraa-0.7.5.patch \
+SRC_URI = "git://github.com/intel-iot-devkit/upm.git;protocol=git;rev=e9679e09824fa5f8c0a46fc4d609248d99809cca \
            file://0001-adafruitms1438-CMakeLists.txt-stop-RPATH-being-added.patch"
 
 PACKAGECONFIG ??= "python nodejs java"
@@ -23,5 +22,4 @@ set (JAVA_JVM_LIBRARY ${JAVA_HOME}/jre/lib/amd64/libjvm.so CACHE FILEPATH \"path
 " >> ${WORKDIR}/toolchain.cmake
 }
 
-FILES_${PN}-dbg += "${libdir}/iotdk/*/.debug \
-                    ${libdir}/java/.debug"
+FILES_${PN}-dbg += " ${libdir}/java/.debug"
