@@ -1,8 +1,5 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI = "git://github.com/intel-iot-devkit/upm.git;protocol=git;rev=e9679e09824fa5f8c0a46fc4d609248d99809cca \
-           file://0001-adafruitms1438-CMakeLists.txt-stop-RPATH-being-added.patch"
-
 PACKAGECONFIG ??= "python nodejs java"
 
 JAVA_HOME="${STAGING_LIBDIR}/jvm/java-8-openjdk"
