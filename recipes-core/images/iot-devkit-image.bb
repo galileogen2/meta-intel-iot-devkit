@@ -49,6 +49,7 @@ IMAGE_INSTALL += "timedate-scripts"
 IMAGE_INSTALL += "iotkit-agent"
 IMAGE_INSTALL += "xdk-daemon"
 IMAGE_INSTALL += "openjdk-8-jre"
+IMAGE_INSTALL += "mdns"
 IMAGE_INSTALL_append_quark += "wyliodrin-server"
 
 IMAGE_INSTALL += "packagegroup-core-eclipse-debug"
