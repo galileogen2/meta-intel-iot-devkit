@@ -13,7 +13,3 @@ MAINTAINER = "Intel IoT Devkit team <meta-intel@yoctoproject.org>"
 # Changing these currently breaks the Eclipse plugin
 #TARGET_VENDOR = "-iotkit"
 #SDK_VENDOR = "-iotkit"
-
-SSTATE_DIR ?= "${TOPDIR}/../devkit-cache/sstate-cache"
-CACHE_forcevariable = "${TOPDIR}/../devkit-cache/cache"
-PERSISTENT_DIR = "${TOPDIR}/../devkit-cache/persistent"
