@@ -261,12 +261,5 @@ ASSUME_PROVIDED += "libsdl-native"
 CONF_VERSION = "1"
 
 
-# Set up the image/DISTRO selection for the hob-iot UI
-HOB_IMAGELIST = "iot-devkit-image:iot-devkit-locked iot-devkit-prof-image:iot-devkit-locked \
-    iot-devkit-prof-dev-image:iot-devkit-locked iot-devkit-spi-image:iot-devkit-spi-locked"
-
-# These are required for hob-iot
-INHERIT += " image_types packageinfo "
-
 # disable lib32-* packages being built in world
 EXCLUDE_FROM_WORLD_virtclass-multilib-lib32 = "1"
