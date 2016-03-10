@@ -111,15 +111,9 @@ MACHINE ??= "quark"
 #     need to set DISTRO to one of the -spi- values listed below. The other
 #     values are for building images to go onto an SD card. (The hob-iot
 #     UI will select this automatically - see HOB_IMAGELIST further down.)
-# (2) The -locked DISTRO values below are for assembling images based on the
-#     components in the pre-populated sstate-cache. If you want to do deeper
-#     customisation you will need to use the non-locked DISTRO options
-#     instead, and the system will build packages from source code.
 #
 #DISTRO ?= "iot-devkit"
 #DISTRO ?= "iot-devkit-spi"
-#DISTRO ?= "iot-devkit-spi-locked"
-#DISTRO ?= "iot-devkit-locked"
 DISTRO ?= "iot-devkit-multilibc"
 
 #
